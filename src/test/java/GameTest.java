@@ -13,7 +13,7 @@ public class GameTest {
         expectedFrames[0][0] = 0;
         expectedFrames[0][1] = 0;
         Game game = new Game(annotation);
-        assertArrayEquals("game must have 1 frame with 2 rolls", expectedFrames, game.frames);
+        assertArrayEquals("game must have 1 frame with 2 rolls", expectedFrames, game.getFrames());
     }
 
     @Test
@@ -24,7 +24,7 @@ public class GameTest {
         expectedFrames[0][0] = 0;
         expectedFrames[0][1] = 1;
         Game game = new Game(annotation);
-        assertArrayEquals("game must have 1 frame with 2 roll and 1 pin in last roll", expectedFrames, game.frames);
+        assertArrayEquals("game must have 1 frame with 2 roll and 1 pin in last roll", expectedFrames, game.getFrames());
     }
 
     @Test
@@ -37,6 +37,6 @@ public class GameTest {
         expectedFrames[1][0] = 0;
         expectedFrames[1][1] = 2;
         Game game = new Game(annotation);
-        assertArrayEquals("game must have 2 frames and pin downs defined", expectedFrames, game.frames);
+        assertArrayEquals("game must have 2 frames and pin downs defined", expectedFrames, game.getFrames());
     }
 }

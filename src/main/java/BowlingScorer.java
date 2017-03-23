@@ -11,10 +11,10 @@ public class BowlingScorer {
      * @return points
      */
     public int calculateScore(String gameAnnotation) {
-        if (gameAnnotation.contains("1")) {
-            return 1;
+        int totalScore = 0;
+        for (int i=0; i<gameAnnotation.length();i++) {
+            totalScore += Character.getNumericValue(gameAnnotation.charAt(i));
         }
-
-        return 0;
+        return totalScore;
     }
 }

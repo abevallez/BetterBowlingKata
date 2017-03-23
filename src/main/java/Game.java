@@ -3,7 +3,7 @@ public class Game {
     /**
      * Frames annotation in a Game
      */
-    protected int[][] frames = new int[10][2];
+    private int[][] frames = new int[10][2];
 
     /**
      * @param annotation String score for a game.
@@ -13,5 +13,9 @@ public class Game {
             frames[i][0] = Character.getNumericValue(annotation.charAt(j));
             frames[i][1] = Character.getNumericValue(annotation.charAt(j+1));
         }
+    }
+
+    public int[][] getFrames() {
+        return frames;
     }
 }
