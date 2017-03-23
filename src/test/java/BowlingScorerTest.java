@@ -25,4 +25,11 @@ public class BowlingScorerTest {
         int totalScore = bowlingScorer.calculateScore("10101010101010101010");
         assertEquals("1 pin down each frame must return 10 point", 10, totalScore);
     }
+
+    @Test
+    public void OnePinDownEachRollReturn20Points() {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+        int totalScore = bowlingScorer.calculateScore("11111111111111111111");
+        assertEquals("1 pin down each roll must return 20 point", 20, totalScore);
+    }
 }
