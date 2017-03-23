@@ -9,7 +9,9 @@ public class Game {
      * @param annotation String score for a game.
      */
     public Game(String annotation) {
-        frames[0][0] = 0;
-        frames[0][1] = 0;
+        for (int i = 0, j=0; j < annotation.length(); i++,j = j+2) {
+            frames[i][0] = Character.getNumericValue(annotation.charAt(j));
+            frames[i][1] = Character.getNumericValue(annotation.charAt(j+1));
+        }
     }
 }
