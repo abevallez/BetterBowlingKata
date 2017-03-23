@@ -11,9 +11,13 @@ public class BowlingScorer {
      * @return points
      */
     public int calculateScore(String gameAnnotation) {
+        Game game = new Game(gameAnnotation);
+
         int totalScore = 0;
-        for (int i=0; i<gameAnnotation.length();i++) {
-            totalScore += Character.getNumericValue(gameAnnotation.charAt(i));
+        int [][]frames = game.getFrames();
+        for (int[] frame : frames) {
+            totalScore += frame[0];
+            totalScore += frame[1];
         }
         return totalScore;
     }
