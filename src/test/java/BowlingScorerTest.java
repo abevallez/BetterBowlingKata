@@ -50,4 +50,11 @@ public class BowlingScorerTest {
         int totalScore = bowlingScorer.calculateScore("19100000000000000000");
         assertEquals("one spare, not last one, add the next roll points", 12, totalScore);
     }
+
+    @Test
+    public void twoSpareInARowAddTheNextRollPoints() {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+        int totalScore = bowlingScorer.calculateScore("19191000000000000000");
+        assertEquals("one spare, not last one, add the next roll points", 23, totalScore);
+    }
 }
