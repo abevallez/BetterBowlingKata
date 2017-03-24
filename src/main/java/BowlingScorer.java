@@ -12,7 +12,16 @@ public class BowlingScorer {
      */
     public int calculateScore(String gameAnnotation) {
         Game game = new Game(gameAnnotation);
+        return getTotalScore(game);
+    }
 
+    /**
+     * Get Total Score from a Game
+     * @param game
+     *
+     * @return total score
+     */
+    private int getTotalScore(Game game) {
         int totalScore = 0;
         int [][]frames = game.getFrames();
         for (int[] frame : frames) {
