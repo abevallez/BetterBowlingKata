@@ -28,7 +28,7 @@ public class BowlingScorer {
         int [][]frames = game.getFrames();
 
         for (int[] frame : frames) {
-            frameScore = frame[0] + frame[1];
+            frameScore = getFrameScore(frame);
             if (frameScore == 10) {
                 spareBonus = true;
             }
@@ -40,5 +40,18 @@ public class BowlingScorer {
             totalScore += frameScore;
         }
         return totalScore;
+    }
+
+    /**
+     * Get Frame Score
+     *
+     * @param frame
+     *
+     * @return points for a frame
+     */
+    private int getFrameScore(int[] frame) {
+        int frameScore;
+        frameScore = frame[0] + frame[1];
+        return frameScore;
     }
 }
