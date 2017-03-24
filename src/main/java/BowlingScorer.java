@@ -1,3 +1,7 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Bowling Scorer
  */
@@ -25,33 +29,20 @@ public class BowlingScorer {
         int totalScore = 0;
         int frameScore;
         boolean spareBonus = false;
-        int [][]frames = game.getFrames();
+        List<Frame> frames = game.getFrames();
 
-        for (int[] frame : frames) {
-            frameScore = getFrameScore(frame);
-            if (frameScore == 10) {
-                spareBonus = true;
+        for (Frame frame : frames) {
+            if (spareBonus) {
+                totalScore += frame.getFirstRoll();
+                spareBonus = false;
             }
 
-            if (spareBonus) {
-                totalScore += frame[0];
-                spareBonus = false;
+            frameScore = frame.getScore();
+            if (frameScore == 10) {
+                spareBonus = true;
             }
             totalScore += frameScore;
         }
         return totalScore;
-    }
-
-    /**
-     * Get Frame Score
-     *
-     * @param frame
-     *
-     * @return points for a frame
-     */
-    private int getFrameScore(int[] frame) {
-        int frameScore;
-        frameScore = frame[0] + frame[1];
-        return frameScore;
     }
 }
