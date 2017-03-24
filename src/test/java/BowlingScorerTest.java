@@ -32,4 +32,11 @@ public class BowlingScorerTest {
         int totalScore = bowlingScorer.calculateScore("11111111111111111111");
         assertEquals("1 pin down each roll must return 20 point", 20, totalScore);
     }
+
+    @Test
+    public void NoSparesNoStrikesGameReturnSumOfPinDowns() {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+        int totalScore = bowlingScorer.calculateScore("12345678912345678912");
+        assertEquals("Not spare, not strike game return sum of pin downs", 93, totalScore);
+    }
 }
