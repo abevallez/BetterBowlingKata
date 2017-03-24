@@ -1,7 +1,15 @@
 import static org.junit.Assert.*;
 
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+/**
+ * Bowling Scorer Test
+ */
+@RunWith(DataProviderRunner.class)
 public class BowlingScorerTest {
 
     @Test
@@ -19,24 +27,20 @@ public class BowlingScorerTest {
         assertEquals("only 1 pin down must return 1 point", 1, totalScore);
     }
 
-    @Test
-    public void OnePinEachFrameReturn10Points() {
-        BowlingScorer bowlingScorer = new BowlingScorer();
-        int totalScore = bowlingScorer.calculateScore("10101010101010101010");
-        assertEquals("1 pin down each frame must return 10 point", 10, totalScore);
+    @DataProvider
+    public static Object[][] noSparesNoStrikesGamesCases() {
+        return new Object[][] {
+                {"11111111111111111111", 20},
+                {"12345678912345678912", 93},
+                {"10101010101010101010", 10}
+        };
     }
 
     @Test
-    public void OnePinDownEachRollReturn20Points() {
+    @UseDataProvider("noSparesNoStrikesGamesCases")
+    public void NoSparesNoStrikesGameReturnSumOfPinDowns(String stringGame, int expectedScore) {
         BowlingScorer bowlingScorer = new BowlingScorer();
-        int totalScore = bowlingScorer.calculateScore("11111111111111111111");
-        assertEquals("1 pin down each roll must return 20 point", 20, totalScore);
-    }
-
-    @Test
-    public void NoSparesNoStrikesGameReturnSumOfPinDowns() {
-        BowlingScorer bowlingScorer = new BowlingScorer();
-        int totalScore = bowlingScorer.calculateScore("12345678912345678912");
-        assertEquals("Not spare, not strike game return sum of pin downs", 93, totalScore);
+        int totalScore = bowlingScorer.calculateScore(stringGame);
+        assertEquals("Not spare, not strike game return sum of pin downs", expectedScore, totalScore);
     }
 }
