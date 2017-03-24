@@ -23,10 +23,21 @@ public class BowlingScorer {
      */
     private int getTotalScore(Game game) {
         int totalScore = 0;
+        int frameScore;
+        boolean spareBonus = false;
         int [][]frames = game.getFrames();
+
         for (int[] frame : frames) {
-            totalScore += frame[0];
-            totalScore += frame[1];
+            frameScore = frame[0] + frame[1];
+            if (frameScore == 10) {
+                spareBonus = true;
+            }
+
+            if (spareBonus) {
+                totalScore += frame[0];
+                spareBonus = false;
+            }
+            totalScore += frameScore;
         }
         return totalScore;
     }

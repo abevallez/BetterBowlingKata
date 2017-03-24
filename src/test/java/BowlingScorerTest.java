@@ -31,16 +31,23 @@ public class BowlingScorerTest {
     public static Object[][] noSparesNoStrikesGamesCases() {
         return new Object[][] {
                 {"11111111111111111111", 20},
-                {"12345678912345678912", 93},
+                {"12121212121212121212", 30},
                 {"10101010101010101010", 10}
         };
     }
 
     @Test
     @UseDataProvider("noSparesNoStrikesGamesCases")
-    public void NoSparesNoStrikesGameReturnSumOfPinDowns(String stringGame, int expectedScore) {
+    public void noSparesNoStrikesGameReturnSumOfPinDowns(String stringGame, int expectedScore) {
         BowlingScorer bowlingScorer = new BowlingScorer();
         int totalScore = bowlingScorer.calculateScore(stringGame);
         assertEquals("Not spare, not strike game return sum of pin downs", expectedScore, totalScore);
+    }
+
+    @Test
+    public void oneSpareNotLastOneAddTheNextRollPoints() {
+        BowlingScorer bowlingScorer = new BowlingScorer();
+        int totalScore = bowlingScorer.calculateScore("19100000000000000000");
+        assertEquals("one spare, not last one, add the next roll points", 12, totalScore);
     }
 }
