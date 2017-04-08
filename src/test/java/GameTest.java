@@ -39,11 +39,13 @@ public class GameTest {
         List<Frame> onePinDown = getOnePinDownFramesGame();
         List<Frame> twoFirstFrames = getTwoFirstFramesGame();
         List<Frame> oneRollEachFrame = getOneRollEachFrameGame();
+        List<Frame> spareInLastFrame = getSpareInLastFrame();
 
         return new Object[][] {
                 {"01000000000000000000", onePinDown},
                 {"01020000000000000000", twoFirstFrames},
-                {"01010101010101010101", oneRollEachFrame}
+                {"01010101010101010101", oneRollEachFrame},
+                {"010100000000000000912", spareInLastFrame}
         };
     }
 
@@ -121,5 +123,25 @@ public class GameTest {
         onePinDown.add(8, new Frame(0,0));
         onePinDown.add(9, new Frame(0,0));
         return onePinDown;
+    }
+
+    /**
+     * One pin down in first frame game
+     *
+     * @return
+     */
+    private static List<Frame> getSpareInLastFrame() {
+        List<Frame> spareInLastFrame = new ArrayList<Frame>();
+        spareInLastFrame.add(0, new Frame(0,1));
+        spareInLastFrame.add(1, new Frame(0,1));
+        spareInLastFrame.add(2, new Frame(0,0));
+        spareInLastFrame.add(3, new Frame(0,0));
+        spareInLastFrame.add(4, new Frame(0,0));
+        spareInLastFrame.add(5, new Frame(0,0));
+        spareInLastFrame.add(6, new Frame(0,0));
+        spareInLastFrame.add(7, new Frame(0,0));
+        spareInLastFrame.add(8, new Frame(0,0));
+        spareInLastFrame.add(9, new LastFrame(9,1, 2));
+        return spareInLastFrame;
     }
 }

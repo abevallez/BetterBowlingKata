@@ -30,13 +30,47 @@ public class Game {
      * @param annotation
      */
     private void setFrames(String annotation) {
-        int firstFrame;
-        int secondFrame;
+        setFirstEightFrames(annotation);
+        setLastFrame(annotation);
 
-        for (int i = 0, j = 0; j < annotation.length(); i++,j = j+2) {
-            firstFrame = Character.getNumericValue(annotation.charAt(j));
-            secondFrame = Character.getNumericValue(annotation.charAt(j+1));
-            frames.add(i, new Frame(firstFrame, secondFrame));
+    }
+
+    private void setLastFrame(String annotation) {
+        int firstRoll;
+        int secondRoll;
+        int firstExtraRoll;
+        int secondExtraRoll;
+
+        switch (annotation.length()) {
+            case 20:
+                firstRoll = Character.getNumericValue(annotation.charAt(18));
+                secondRoll = Character.getNumericValue(annotation.charAt(19));
+                this.frames.add(9, new LastFrame(firstRoll, secondRoll));
+                break;
+            case 21:
+                firstRoll = Character.getNumericValue(annotation.charAt(18));
+                secondRoll = Character.getNumericValue(annotation.charAt(19));
+                firstExtraRoll = Character.getNumericValue(annotation.charAt(20));
+                this.frames.add(9, new LastFrame(firstRoll, secondRoll, firstExtraRoll));
+                break;
+            case 22:
+                firstRoll = Character.getNumericValue(annotation.charAt(18));
+                secondRoll = Character.getNumericValue(annotation.charAt(19));
+                firstExtraRoll = Character.getNumericValue(annotation.charAt(20));
+                secondExtraRoll = Character.getNumericValue(annotation.charAt(21));
+                this.frames.add(9, new LastFrame(firstRoll, secondRoll, firstExtraRoll, secondExtraRoll));
+                break;
+        }
+    }
+
+    private void setFirstEightFrames(String annotation) {
+        int firstRoll;
+        int secondRoll;
+
+        for (int i = 0, j = 0; i<=8; i++,j = j+2) {
+            firstRoll = Character.getNumericValue(annotation.charAt(j));
+            secondRoll = Character.getNumericValue(annotation.charAt(j+1));
+            this.frames.add(i, new Frame(firstRoll, secondRoll));
         }
     }
 

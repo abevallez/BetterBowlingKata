@@ -1,19 +1,28 @@
+/**
+ * Frame
+ */
 public class Frame{
 
     /**
      * First Roll
      */
-    private int firstRoll;
+    protected int firstRoll;
 
     /**
      * Second Roll
      */
-    private int secondRoll;
+    protected int secondRoll;
 
     /**
      * Score
      */
-    private int score;
+    protected int score;
+
+    /**
+     * Frame
+     */
+    public Frame() {
+    }
 
     /**
      * @param firstRoll
@@ -52,6 +61,20 @@ public class Frame{
         return score;
     }
 
+    /**
+     * Set Score
+     *
+     * @return
+     */
+    private void setScore() {
+        this.score = this.firstRoll + this.secondRoll;
+    }
+
+    /**
+     *
+     * @param frame
+     * @return
+     */
     public boolean equals(Frame frame) {
         return (this.getFirstRoll() == frame.getFirstRoll()
                 && this.getSecondRoll() == frame.getSecondRoll());
