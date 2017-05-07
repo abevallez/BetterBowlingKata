@@ -6,6 +6,10 @@ import java.util.List;
  */
 public class Game {
 
+    static final char STRIKE_SIGNAL = 'X';
+    static final int STRIKE_VALUE = 10;
+    static final int SPARE_VALUE = 10;
+
     /**
      * Frames annotation in a Game
      */
@@ -30,47 +34,52 @@ public class Game {
      * @param annotation
      */
     private void setFrames(String annotation) {
-        setFirstEightFrames(annotation);
-        setLastFrame(annotation);
+        char firstRoll;
+        char secondRoll;
+        char firstExtraRoll;
+        char secondExtraRoll;
 
-    }
+        int i;
+        int j;
 
-    private void setLastFrame(String annotation) {
-        int firstRoll;
-        int secondRoll;
-        int firstExtraRoll;
-        int secondExtraRoll;
+        for (i = 0, j = 0; i<=8; i++) {
+            firstRoll = annotation.charAt(j);
+            secondRoll = annotation.charAt(j+1);
 
-        switch (annotation.length()) {
-            case 20:
-                firstRoll = Character.getNumericValue(annotation.charAt(18));
-                secondRoll = Character.getNumericValue(annotation.charAt(19));
-                this.frames.add(9, new LastFrame(firstRoll, secondRoll));
-                break;
-            case 21:
-                firstRoll = Character.getNumericValue(annotation.charAt(18));
-                secondRoll = Character.getNumericValue(annotation.charAt(19));
-                firstExtraRoll = Character.getNumericValue(annotation.charAt(20));
-                this.frames.add(9, new LastFrame(firstRoll, secondRoll, firstExtraRoll));
-                break;
-            case 22:
-                firstRoll = Character.getNumericValue(annotation.charAt(18));
-                secondRoll = Character.getNumericValue(annotation.charAt(19));
-                firstExtraRoll = Character.getNumericValue(annotation.charAt(20));
-                secondExtraRoll = Character.getNumericValue(annotation.charAt(21));
-                this.frames.add(9, new LastFrame(firstRoll, secondRoll, firstExtraRoll, secondExtraRoll));
-                break;
+            if (STRIKE_SIGNAL == firstRoll) {
+                this.frames.add(i, new Frame(signalToPoints(STRIKE_SIGNAL), 0));
+                j++;
+            } else {
+                this.frames.add(i, new Frame(signalToPoints(firstRoll), signalToPoints(secondRoll)));
+                j = j+2;
+            }
+        }
+
+        firstRoll = annotation.charAt(j);
+        secondRoll = annotation.charAt(j + 1);
+
+        if (STRIKE_SIGNAL == firstRoll) {
+            firstExtraRoll = annotation.charAt(j + 2);
+            secondExtraRoll = annotation.charAt(j + 3);
+            this.frames.add(i, new LastFrame(STRIKE_VALUE, 0, signalToPoints(firstExtraRoll), signalToPoints(secondExtraRoll)));
+        } else {
+            LastFrame lastFrame = new LastFrame(signalToPoints(firstRoll), signalToPoints(secondRoll));
+            if (SPARE_VALUE == lastFrame.getScore()) {
+                firstExtraRoll = annotation.charAt(j + 2);
+                lastFrame = new LastFrame(signalToPoints(firstRoll), signalToPoints(secondRoll), signalToPoints(firstExtraRoll));
+            }
+            this.frames.add(i, lastFrame);
         }
     }
 
-    private void setFirstEightFrames(String annotation) {
-        int firstRoll;
-        int secondRoll;
-
-        for (int i = 0, j = 0; i<=8; i++,j = j+2) {
-            firstRoll = Character.getNumericValue(annotation.charAt(j));
-            secondRoll = Character.getNumericValue(annotation.charAt(j+1));
-            this.frames.add(i, new Frame(firstRoll, secondRoll));
+    private int signalToPoints(char signal) {
+        switch (signal) {
+            case 'X':
+                return STRIKE_VALUE;
+            case '-':
+                return 0;
+            default:
+                return Character.getNumericValue(signal);
         }
     }
 
